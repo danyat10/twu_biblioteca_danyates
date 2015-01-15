@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BibliotecaApp {
 
-    ArrayList<String> myList = new ArrayList<String>();
+    private ArrayList<Book> bookList = new ArrayList<Book>();
 
     public static void main(String[] args) {
 
@@ -14,9 +14,15 @@ public class BibliotecaApp {
         return "welcome";
     }
 
-    public ArrayList<String> getBookList(){
-        return myList;
+    public ArrayList<Book> getBooks(){
+        return bookList;
+    }
+
+    public void addBook (Book bookToAdd) {
+        bookList.add(bookToAdd);
     }
 
 
 }
+
+
