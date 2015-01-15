@@ -63,7 +63,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void shows_list_of_available_commands () {
-        assertThat(lib.displayMenuOptions(), containsString("L) List Books"));
+        assertThat(lib.displayMenuOptions(), containsString("L) List Books\n"));
     }
 
     /*@Test
@@ -74,9 +74,11 @@ public class BibliotecaAppTest {
 
     @Test
     public void if_menu_option_is_invalid_show_error_message () {
-        String userInput = "L";
-        lib.runMenuCommand(userInput);
+        String userInput = "L"; //should be 'L'
+        assertEquals(lib.runMenuCommand(userInput), "Select a valid option!");
     }
+
+    
 
     /*
     @Test

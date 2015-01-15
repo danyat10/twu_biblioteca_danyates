@@ -9,9 +9,11 @@ public class Library {
     private String title;
     private ArrayList<Book> bookList;
 
+    //Constructor
     public Library (ArrayList<Book> books) {
         bookList = books;
     }
+
 
     //Setters and getters for title
     public void setTitle (String newTitle) {
@@ -35,16 +37,14 @@ public class Library {
         bookList.remove(bookToRemove);
     }
 
-    //Menu functionality
     public String displayMenuOptions () {
         String menuText = "== Menu Options ==\n";
-        menuText += "L) List Books";
+        menuText += "L) List Books\n";
 
         System.out.println(menuText);
         return menuText;
     }
 
-    //Get Input from Prompt
     public String getInput(String prompt){
         String inputLine = null;
         System.out.print(prompt + " ");
@@ -61,7 +61,15 @@ public class Library {
         return inputLine.toLowerCase();
     }
 
-    public void runMenuCommand(String cmd) {
-
+    public String runMenuCommand(String cmd) {
+        if(cmd == "S") {
+            System.out.println("Showing all books...");
+            return "shows all books";
+        }
+        else {
+            System.out.println("Select a valid option!");
+            return "Select a valid option!";
+        }
     }
+
 }
