@@ -16,17 +16,21 @@ public class ExampleTest {
         assertEquals(app.getTitle(),"welcome");
     }
 
-    @Test
-    public void getListOfBooks() {
-        assertEquals(true, app.getBooks());
-    }
 
     @Test
-    public void getBookWithTitleAndAuthor() {
+    public void bookIsSuccessfullyAdded() {
         Book mybook = new Book("Test Driven Development by Example", "Kent Beck");
         app.addBook(mybook);
         ArrayList<Book> bookList = app.getBooks();
         assertTrue(bookList.contains(mybook));
     }
 
+    @Test
+    public void hasTitleAndAuthor() {
+        Book mybook = new Book("Test Driven Development by Example", "Kent Beck");
+        app.addBook(mybook);
+        ArrayList<Book> asd = app.getBooks();
+        assertEquals(asd.get(0).getTitle(), "Test Driven Development by Example");
+        assertEquals(asd.get(0).getAuthor(), "Kent Beck");
+    }
 }
