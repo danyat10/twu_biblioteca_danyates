@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 public class Library {
     private String title;
-    public boolean quitApp = false;
+    private int libraryId = 0;
+    private boolean quitApp = false;
     private ArrayList<Book> bookList;
 
     //Constructor
-    public Library (ArrayList<Book> books) {
-        bookList = books;
+    public Library (ArrayList<Book> books, int libraryId) {
+        this.libraryId = libraryId;
+        this.bookList = books;
     }
 
 
@@ -24,6 +26,10 @@ public class Library {
         return title;
     }
 
+    public int getLibraryId(){
+        return libraryId;
+    }
+
 
     //Book functionality
     public ArrayList<Book> getAllBooks(){
@@ -33,24 +39,35 @@ public class Library {
         return bookList.get(index);
     }
     public void addBook (Book bookToAdd) {
+        bookToAdd.setLibraryRef(libraryId);
         bookList.add(bookToAdd);
     }
     public void removeBook (Book bookToRemove) {
         bookList.remove(bookToRemove);
     }
     public String checkout (Book book) {
-        if (book.putOnLoan()){
+        if (book.putOnLoan()) {
             removeBook(book);
             return "Thank you! Enjoy the book";
-        }
-        else {
+        } else
             return "That book is not available.";
-        }
     }
-    public void checkin (Book book) {
-        if (book.putOnHire()) {
-            addBook(book);
+
+    public String checkin (Book book) {
+        String response = "";
+        if(checkId(book)){
+            if (book.putOnHire()) {
+                addBook(book);
+                response = "Thank you for returning the book.";
+            }
         }
+        else response =  "That is not a valid book to return.";
+        return response;
+    }
+
+    public boolean checkId (Book book) {
+        boolean result = (book.getBookRef() == libraryId);
+        return result;
     }
 
 
@@ -96,18 +113,18 @@ public class Library {
 
     //Menu Commands
     public String printAllBooksToScreen () {
-        System.out.println("Showing all books...");
+        //System.out.println("Showing all books...");
         return "Shows all books";
     }
 
     public String quitApplication () {
-        System.out.println("Quitting application...");
+        //System.out.println("Quitting application...");
         quitApp = true;
         return "Quit";
     }
 
     public String generateError() {
-        System.out.println("Select a valid option!");
+        //System.out.println("Select a valid option!");
         return "Select a valid option!";
     }
 

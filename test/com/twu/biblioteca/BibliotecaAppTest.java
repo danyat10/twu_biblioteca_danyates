@@ -16,9 +16,9 @@ public class BibliotecaAppTest {
 
     @Before
     public void returns_books_passed_in (){
-        Book bookA = new Book("Test Driven Development by Example", "Kent Beck");
-        Book bookB = new Book("Head First Java", "Kathy Sierra & Bert Bates");
-        Book bookC = new Book("Stig of the Dump", "Clive King");
+        Book bookA = new Book("Test Driven Development by Example", "Kent Beck", 00001);
+        Book bookB = new Book("Head First Java", "Kathy Sierra & Bert Bates", 00001);
+        Book bookC = new Book("Stig of the Dump", "Clive King", 00001);
 
         ArrayList<Book> books = new ArrayList<Book>();
 
@@ -26,7 +26,7 @@ public class BibliotecaAppTest {
         books.add(bookB);
         books.add(bookC);
 
-        lib = new Library(books);
+        lib = new Library(books, 00001);
         assertEquals(lib.getAllBooks().size(), 3);
     }
 
@@ -39,7 +39,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void is_4_when_book_is_added_to_library () {
-        Book mybook = new Book("Harry Potter Order of the Phoenix", "J.K Rowling");
+        Book mybook = new Book("Harry Potter Order of the Phoenix", "J.K Rowling", 00001);
         lib.addBook(mybook);
         ArrayList<Book> bookList = lib.getAllBooks();
         assertEquals(lib.getAllBooks().size(), 4);
@@ -54,7 +54,7 @@ public class BibliotecaAppTest {
 
     @Test
     public void has_title_and_author_present () {
-        Book mybook = new Book("Test Driven Development by Example", "Kent Beck");
+        Book mybook = new Book("Test Driven Development by Example", "Kent Beck", 00001);
         lib.addBook(mybook);
         Book particularBook = lib.getBook(0);
         assertEquals(particularBook.getTitle(), "Test Driven Development by Example");
@@ -118,5 +118,20 @@ public class BibliotecaAppTest {
 
         lib.checkin(myBook);
         assertEquals(3, lib.getAllBooks().size());
+    }
+
+    @Test
+    public void show_thank_you_message_when_book_is_loaned_from_correct_library () {
+        Book myBook = lib.getBook(0);
+        lib.checkout(myBook);
+        assertThat(lib.checkin(myBook), containsString("Thank you for returning the book."));
+    }
+
+    @Test
+    public void show_error_message_when_book_is_returned_to_wrong_library () {
+        Book myBook = lib.getBook(0);
+        lib.checkout(myBook);
+        myBook.setLibraryRef(111111);
+        assertThat(lib.checkin(myBook), containsString("That is not a valid book to return."));
     }
 }
