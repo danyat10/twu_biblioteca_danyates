@@ -74,11 +74,24 @@ public class BibliotecaAppTest {
 
     @Test
     public void if_menu_option_is_invalid_show_error_message () {
-        String userInput = "L"; //should be 'L'
+        String userInput = "sadsad"; //should be 'L'
         assertEquals(lib.runMenuCommand(userInput), "Select a valid option!");
     }
 
-    
+    @Test
+    public void loop_through_all_two_commands_until_termination () {
+        int timesRun = -1;
+        String command = "LLLQL";
+        String[] array = command.split("");
+
+        do {
+            timesRun++;
+            lib.runMenuCommand(array[timesRun]);
+        }
+        while (!lib.hasQuit());
+        assertEquals(4, timesRun);
+    }
+
 
     /*
     @Test

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Library {
     private String title;
+    public boolean quitApp = false;
     private ArrayList<Book> bookList;
 
     //Constructor
@@ -23,6 +24,7 @@ public class Library {
         return title;
     }
 
+
     //Book functionality
     public ArrayList<Book> getAllBooks(){
         return bookList;
@@ -37,6 +39,8 @@ public class Library {
         bookList.remove(bookToRemove);
     }
 
+
+    //Menu functionality
     public String displayMenuOptions () {
         String menuText = "== Menu Options ==\n";
         menuText += "L) List Books\n";
@@ -44,7 +48,6 @@ public class Library {
         System.out.println(menuText);
         return menuText;
     }
-
     public String getInput(String prompt){
         String inputLine = null;
         System.out.print(prompt + " ");
@@ -60,16 +63,41 @@ public class Library {
 
         return inputLine.toLowerCase();
     }
-
     public String runMenuCommand(String cmd) {
-        if(cmd == "S") {
-            System.out.println("Showing all books...");
-            return "shows all books";
+        String ret;
+
+        if(cmd.equals("L")) {
+            ret = printAllBooksToScreen();
+        }
+        else if (cmd.equals("Q")) {
+            ret = quitApplication();
         }
         else {
-            System.out.println("Select a valid option!");
-            return "Select a valid option!";
+            ret = generateError();
         }
+
+        return ret;
     }
 
+
+    //Menu Commands
+    public String printAllBooksToScreen () {
+        System.out.println("Showing all books...");
+        return "Shows all books";
+    }
+
+    public String quitApplication () {
+        System.out.println("Quitting application...");
+        quitApp = true;
+        return "Quit";
+    }
+
+    public String generateError() {
+        System.out.println("Select a valid option!");
+        return "Select a valid option!";
+    }
+
+    public boolean hasQuit () {
+        return quitApp;
+    }
 }
