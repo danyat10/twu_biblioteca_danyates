@@ -39,14 +39,18 @@ public class Library {
         bookList.remove(bookToRemove);
     }
     public String checkout (Book book) {
-        if (book.checkout()){
+        if (book.putOnLoan()){
             removeBook(book);
             return "Thank you! Enjoy the book";
         }
         else {
             return "That book is not available.";
         }
-
+    }
+    public void checkin (Book book) {
+        if (book.putOnHire()) {
+            addBook(book);
+        }
     }
 
 

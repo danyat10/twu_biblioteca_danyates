@@ -13,20 +13,23 @@ public class Book {
     public String getTitle () {
         return title;
     }
-
+    public Boolean onLoan () { return checkedOut; }
     public String getAuthor () {
         return author;
     }
 
-    public boolean checkout () {
-        if(!checkedOut) {
+    public boolean putOnLoan () {
+        if(!onLoan()){
             checkedOut = true;
-            return checkedOut;
+            return true;
         }
-        else {
-            return false;
-        }
-
+        else return false;
     }
-
+    public boolean putOnHire () {
+        if(onLoan()){
+            checkedOut = false;
+            return true;
+        }
+        else return false;
+    }
 }

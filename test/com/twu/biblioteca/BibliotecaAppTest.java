@@ -99,14 +99,24 @@ public class BibliotecaAppTest {
         assertThat(lib.checkout(lib.getBook(0)), containsString("Thank you! Enjoy the book"));
         ArrayList<Book> aBook = lib.getAllBooks();
         assertEquals(2, aBook.size());
-
     }
 
     @Test
     public void three_books_left_when_user_tries_to_checkout_an_unavailable_book () {
-        lib.getBook(0).checkout();
+        lib.getBook(0).putOnLoan();
         assertThat(lib.checkout(lib.getBook(0)), containsString("That book is not available."));
         ArrayList<Book> aBook = lib.getAllBooks();
         assertEquals(3, aBook.size());
+    }
+
+    @Test
+    public void three_books_left_when_user_returns_a_book () {
+        Book myBook = lib.getBook(0);
+
+        lib.checkout(myBook);
+        assertEquals(2, lib.getAllBooks().size());
+
+        lib.checkin(myBook);
+        assertEquals(3, lib.getAllBooks().size());
     }
 }
