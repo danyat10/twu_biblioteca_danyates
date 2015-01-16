@@ -33,7 +33,7 @@ public class BibliotecaAppTest {
     @Test
     public void can_set_and_get_title () {
         lib.setTitle("Welcome to Bangalore Library");
-        assertEquals(lib.getTitle(), "Welcome to Bangalore Library");
+        assertThat(lib.getTitle(), containsString("Welcome to Bangalore Library"));
     }
 
 
@@ -89,15 +89,24 @@ public class BibliotecaAppTest {
             lib.runMenuCommand(array[timesRun]);
         }
         while (!lib.hasQuit());
+
         assertEquals(4, timesRun);
     }
 
 
-    /*
     @Test
-    public void is_true_if_book_can_be_lended () {
-        ArrayList<Book> aBook = lib.getBooks();
-        aBook.get(0).isLendable(null);
-        ArrayList<Book> aBook = app.getBooks();
-    }*/
+    public void two_books_left_when_a_book_is_checked_out () {
+        assertThat(lib.checkout(lib.getBook(0)), containsString("Thank you! Enjoy the book"));
+        ArrayList<Book> aBook = lib.getAllBooks();
+        assertEquals(2, aBook.size());
+
+    }
+
+    @Test
+    public void three_books_left_when_user_tries_to_checkout_an_unavailable_book () {
+        lib.getBook(0).checkout();
+        assertThat(lib.checkout(lib.getBook(0)), containsString("That book is not available."));
+        ArrayList<Book> aBook = lib.getAllBooks();
+        assertEquals(3, aBook.size());
+    }
 }

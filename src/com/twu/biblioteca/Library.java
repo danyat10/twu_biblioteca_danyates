@@ -38,6 +38,16 @@ public class Library {
     public void removeBook (Book bookToRemove) {
         bookList.remove(bookToRemove);
     }
+    public String checkout (Book book) {
+        if (book.checkout()){
+            removeBook(book);
+            return "Thank you! Enjoy the book";
+        }
+        else {
+            return "That book is not available.";
+        }
+
+    }
 
 
     //Menu functionality
